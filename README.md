@@ -1,2 +1,3 @@
 # adapter
-Onebot adapter for kokkoro.
+
+OneBot adapter for kokkoro.
