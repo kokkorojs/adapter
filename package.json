@@ -1,5 +1,5 @@
 {
-  "name": "adapter",
+  "name": "@kokkoro/adapter",
   "version": "0.0.1",
   "description": "OneBot adapter for kokkoro.",
   "type": "module",
@@ -8,16 +8,31 @@
     "node": ">=15"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "tsc && tsc-alias"
   },
-  "keywords": [],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kokkorojs/adapter.git"
+  },
+  "keywords": [
+    "onebot",
+    "kokkoro"
+  ],
   "author": "yuki <mail@yuki.sh>",
   "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/kokkorojs/adapter/issues"
+  },
+  "homepage": "https://github.com/kokkorojs/adapter#readme",
   "dependencies": {
     "nanoid": "^4.0.2",
     "ws": "^8.13.0"
   },
   "devDependencies": {
-    "@types/ws": "^8.5.4"
-  }
+    "@types/ws": "^8.5.4",
+    "tsc-alias": "^1.8.5"
+  },
+  "files": [
+    "lib"
+  ]
 }

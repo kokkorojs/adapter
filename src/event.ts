@@ -215,30 +215,13 @@ interface NoticeEvent extends Event {
 }
 
 /** 全部通知事件 */
-type AllNoticeEvent =
-  ClientStatusNoticeEvent
-  | EssenceNoticeEvent
-  | AllFriendNoticeEvent
-  | AllGroupNoticeEvent
-  | AllNotifyNoticeEvent;
+type AllNoticeEvent = ClientStatusNoticeEvent | EssenceNoticeEvent | AllFriendNoticeEvent | AllGroupNoticeEvent | AllNotifyNoticeEvent;
 /** 全部好友通知事件 */
 type AllFriendNoticeEvent = FriendAddNoticeEvent | FriendRecallNoticeEvent;
 /** 全部群通知事件 */
-type AllGroupNoticeEvent =
-  GroupRecallNoticeEvent
-  | GroupIncreaseNoticeEvent
-  | GroupDecreaseNoticeEvent
-  | GroupAdminNoticeEvent
-  | GroupUploadNoticeEvent
-  | GroupBanNoticeEvent;
+type AllGroupNoticeEvent = GroupRecallNoticeEvent | GroupIncreaseNoticeEvent | GroupDecreaseNoticeEvent | GroupAdminNoticeEvent | GroupUploadNoticeEvent | GroupBanNoticeEvent;
 /** 全部消息通知事件 */
-type AllNotifyNoticeEvent =
-  NotifyPokeNoticeEvent
-  | NotifyLuckyKingNoticeEvent
-  | NotifyHonorNoticeEvent
-  | NotifyTitleNoticeEvent
-  | NotifyGroupCardNoticeEvent
-  | NotifyOfflineFileNoticeEvent;
+type AllNotifyNoticeEvent = NotifyPokeNoticeEvent | NotifyLuckyKingNoticeEvent | NotifyHonorNoticeEvent | NotifyTitleNoticeEvent | NotifyGroupCardNoticeEvent | NotifyOfflineFileNoticeEvent;
 
 /** 好友添加事件 */
 interface FriendAddNoticeEvent extends NoticeEvent {
@@ -458,7 +441,7 @@ interface NotifyOfflineFileNoticeEvent extends NoticeEvent {
 }
 
 /** 客户端信息 */
-interface Device {
+export interface Device {
   /** 客户端ID */
   app_id: number;
   /** 设备名称 */
@@ -496,111 +479,114 @@ interface EssenceNoticeEvent<T extends EssenceSubType = EssenceSubType> extends 
   message_id: number;
 }
 
+/** 事件名 */
+export type EventName = keyof EventMap;
+
 /** 事件地图 */
 export interface EventMap<T = any> {
   /** 全部元事件 */
-  "meta_event": (this: T, event: AllMetaEvent) => void;
+  'meta_event': (this: T, event: AllMetaEvent) => void;
   /** 生命周期 */
-  "meta_event.lifecycle": (this: T, event: LifecycleMetaEvent) => void;
+  'meta_event.lifecycle': (this: T, event: LifecycleMetaEvent) => void;
   /** 启用 */
-  "meta_event.lifecycle.enable": (this: T, event: LifecycleMetaEvent<'enable'>) => void;
+  'meta_event.lifecycle.enable': (this: T, event: LifecycleMetaEvent<'enable'>) => void;
   /** 禁用 */
-  "meta_event.lifecycle.disable": (this: T, event: LifecycleMetaEvent<'disable'>) => void;
+  'meta_event.lifecycle.disable': (this: T, event: LifecycleMetaEvent<'disable'>) => void;
   /** 连接 */
-  "meta_event.lifecycle.connect": (this: T, event: LifecycleMetaEvent<'connect'>) => void;
+  'meta_event.lifecycle.connect': (this: T, event: LifecycleMetaEvent<'connect'>) => void;
   /** 心跳包 */
-  "meta_event.heartbeat": (this: T, event: HeartbeatMetaEvent) => void;
+  'meta_event.heartbeat': (this: T, event: HeartbeatMetaEvent) => void;
 
   /** 全部消息 */
-  "message": (this: T, event: AllMessageEvent) => void;
+  'message': (this: T, event: AllMessageEvent) => void;
   /** 私聊消息 */
-  "message.private": (this: T, event: PrivateMessageEvent) => void;
+  'message.private': (this: T, event: PrivateMessageEvent) => void;
   /** 好友消息 */
-  "message.private.friend": (this: T, event: PrivateMessageEvent<'friend'>) => void;
+  'message.private.friend': (this: T, event: PrivateMessageEvent<'friend'>) => void;
   /** 群临时会话 */
-  "message.private.group": (this: T, event: PrivateMessageEvent<'group'>) => void;
+  'message.private.group': (this: T, event: PrivateMessageEvent<'group'>) => void;
   /** 群中自身发送 */
-  "message.private.group_self": (this: T, event: PrivateMessageEvent<'group_self'>) => void;
+  'message.private.group_self': (this: T, event: PrivateMessageEvent<'group_self'>) => void;
   /** 论外 */
-  "message.private.other": (this: T, event: PrivateMessageEvent<'other'>) => void;
+  'message.private.other': (this: T, event: PrivateMessageEvent<'other'>) => void;
   /** 群消息 */
-  "message.group": (this: T, event: GroupMessageEvent) => void;
+  'message.group': (this: T, event: GroupMessageEvent) => void;
   /** 正常消息 */
-  "message.group.normal": (this: T, event: GroupMessageEvent<'normal'>) => void;
+  'message.group.normal': (this: T, event: GroupMessageEvent<'normal'>) => void;
   /** 匿名消息 */
-  "message.group.anonymous": (this: T, event: GroupMessageEvent<'anonymous'>) => void;
+  'message.group.anonymous': (this: T, event: GroupMessageEvent<'anonymous'>) => void;
   /** 系统提示 ( 如「管理员已禁止群内匿名聊天」) */
-  "message.group.notice": (this: T, event: GroupMessageEvent<'notice'>) => void;
+  'message.group.notice': (this: T, event: GroupMessageEvent<'notice'>) => void;
 
   /** 全部请求 */
-  "request": (this: T, event: AllRequestEvent) => void;
+  'request': (this: T, event: AllRequestEvent) => void;
   /** 好友请求 */
-  "request.friend": (this: T, event: FriendRequestEvent) => void;
+  'request.friend': (this: T, event: FriendRequestEvent) => void;
   /** 群请求 */
-  "request.group": (this: T, event: GroupRequestEvent) => void;
+  'request.group': (this: T, event: GroupRequestEvent) => void;
   /** 加群请求 */
-  "request.group.add": (this: T, event: GroupRequestEvent<'add'>) => void;
+  'request.group.add': (this: T, event: GroupRequestEvent<'add'>) => void;
   /** 邀请入群 */
-  "request.group.invite": (this: T, event: GroupRequestEvent<'invite'>) => void;
+  'request.group.invite': (this: T, event: GroupRequestEvent<'invite'>) => void;
 
   /** 全部通知 */
-  "notice": (this: T, event: AllNoticeEvent) => void;
+  'notice': (this: T, event: AllNoticeEvent) => void;
   /** 好友消息 */
-  "notice.friend": (this: T, event: AllFriendNoticeEvent) => void;
+  'notice.friend': (this: T, event: AllFriendNoticeEvent) => void;
   /** 好友添加 */
-  "notice.friend.add": (this: T, event: FriendAddNoticeEvent) => void;
+  'notice.friend.add': (this: T, event: FriendAddNoticeEvent) => void;
   /** 好友消息撤回 */
-  "notice.friend.recall": (this: T, event: FriendRecallNoticeEvent) => void;
+  'notice.friend.recall': (this: T, event: FriendRecallNoticeEvent) => void;
 
   /** 群消息 */
-  "notice.group": (this: T, event: AllGroupNoticeEvent) => void;
+  'notice.group': (this: T, event: AllGroupNoticeEvent) => void;
   /** 群消息撤回 */
-  "notice.group.recall": (this: T, event: GroupRecallNoticeEvent) => void;
+  'notice.group.recall': (this: T, event: GroupRecallNoticeEvent) => void;
   /** 群成员增加 */
-  "notice.group.increase": (this: T, event: GroupIncreaseNoticeEvent) => void;
+  'notice.group.increase': (this: T, event: GroupIncreaseNoticeEvent) => void;
   /** 群成员减少 */
-  "notice.group.decrease": (this: T, event: GroupDecreaseNoticeEvent) => void;
+  'notice.group.decrease': (this: T, event: GroupDecreaseNoticeEvent) => void;
   /** 主动退群 */
-  "notice.group.decrease.leave": (this: T, event: GroupDecreaseNoticeEvent<'leave'>) => void;
+  'notice.group.decrease.leave': (this: T, event: GroupDecreaseNoticeEvent<'leave'>) => void;
   /** 成员被踢 */
-  "notice.group.decrease.kick": (this: T, event: GroupDecreaseNoticeEvent<'kick'>) => void;
+  'notice.group.decrease.kick': (this: T, event: GroupDecreaseNoticeEvent<'kick'>) => void;
   /** 登录号被踢 */
-  "notice.group.decrease.kick_me": (this: T, event: GroupDecreaseNoticeEvent<'kick_me'>) => void;
+  'notice.group.decrease.kick_me': (this: T, event: GroupDecreaseNoticeEvent<'kick_me'>) => void;
   /** 群管理员变更 */
-  "notice.group.admin": (this: T, event: GroupAdminNoticeEvent) => void;
-  "notice.group.admin.set": (this: T, event: GroupAdminNoticeEvent<'set'>) => void;
-  "notice.group.admin.unset": (this: T, event: GroupAdminNoticeEvent<'unset'>) => void;
+  'notice.group.admin': (this: T, event: GroupAdminNoticeEvent) => void;
+  'notice.group.admin.set': (this: T, event: GroupAdminNoticeEvent<'set'>) => void;
+  'notice.group.admin.unset': (this: T, event: GroupAdminNoticeEvent<'unset'>) => void;
   /** 群文件上传 */
-  "notice.group.upload": (this: T, event: GroupUploadNoticeEvent) => void;
+  'notice.group.upload': (this: T, event: GroupUploadNoticeEvent) => void;
   /** 群成员禁言 */
-  "notice.group.ban": (this: T, event: GroupBanNoticeEvent) => void;
+  'notice.group.ban': (this: T, event: GroupBanNoticeEvent) => void;
   /** 禁言 */
-  "notice.group.ban.ban": (this: T, event: GroupBanNoticeEvent<'ban'>) => void;
+  'notice.group.ban.ban': (this: T, event: GroupBanNoticeEvent<'ban'>) => void;
   /** 解除禁言 */
-  "notice.group.ban.lift_ban": (this: T, event: GroupBanNoticeEvent<'lift_ban'>) => void;
+  'notice.group.ban.lift_ban': (this: T, event: GroupBanNoticeEvent<'lift_ban'>) => void;
 
   /** 全部消息 */
-  "notice.notify": (this: T, event: AllNotifyNoticeEvent) => void;
+  'notice.notify': (this: T, event: AllNotifyNoticeEvent) => void;
   /** 戳一戳 */
-  "notice.notify.poke": (this: T, event: NotifyPokeNoticeEvent) => void;
+  'notice.notify.poke': (this: T, event: NotifyPokeNoticeEvent) => void;
   /** 群红包运气王 */
-  "notice.notify.lucky_king": (this: T, event: NotifyLuckyKingNoticeEvent) => void;
+  'notice.notify.lucky_king': (this: T, event: NotifyLuckyKingNoticeEvent) => void;
   /** 群成员荣誉变更 */
-  "notice.notify.honor": (this: T, event: NotifyHonorNoticeEvent) => void;
+  'notice.notify.honor': (this: T, event: NotifyHonorNoticeEvent) => void;
   /** 群成员头衔变更 */
-  "notice.notify.title": (this: T, event: NotifyTitleNoticeEvent) => void;
+  'notice.notify.title': (this: T, event: NotifyTitleNoticeEvent) => void;
   /** 群成员名片更新 */
-  "notice.notify.group_card": (this: T, event: NotifyGroupCardNoticeEvent) => void;
+  'notice.notify.group_card': (this: T, event: NotifyGroupCardNoticeEvent) => void;
   /** 接收到离线文件 */
-  "notice.notify.offline_file": (this: T, event: NotifyOfflineFileNoticeEvent) => void;
+  'notice.notify.offline_file': (this: T, event: NotifyOfflineFileNoticeEvent) => void;
 
   /** 其他客户端在线状态变更 */
-  "notice.client.status": (this: T, event: ClientStatusNoticeEvent) => void;
+  'notice.client.status': (this: T, event: ClientStatusNoticeEvent) => void;
 
   /** 精华消息变更 */
-  "notice.essence": (this: T, event: EssenceNoticeEvent) => void;
+  'notice.essence': (this: T, event: EssenceNoticeEvent) => void;
   /** 添加 */
-  "notice.essence.add": (this: T, event: EssenceNoticeEvent<'add'>) => void;
+  'notice.essence.add': (this: T, event: EssenceNoticeEvent<'add'>) => void;
   /** 移出 */
-  "notice.essence.delete": (this: T, event: EssenceNoticeEvent<'delete'>) => void;
+  'notice.essence.delete': (this: T, event: EssenceNoticeEvent<'delete'>) => void;
 }
