@@ -2,8 +2,8 @@ import { EventEmitter } from 'events';
 import { ClientRequestArgs } from 'http';
 import { nanoid } from 'nanoid';
 import { WebSocket, ClientOptions, RawData } from 'ws';
-import { ApiName, ApiResponse, ApiParams, ApiResult } from '@/api.js';
-import { EventName, EventMap } from '@/event.js';
+import { ApiName, ApiResponse, ApiParams, ApiResult } from '~/api.js';
+import { EventName, EventMap } from '~/event.js';
 
 export interface Client {
   addListener<T extends EventName>(eventName: T, listener: EventMap<this>[T]): this;
@@ -66,7 +66,7 @@ export class Client extends EventEmitter {
     sub_type && types.push(sub_type);
 
     while (types.length) {
-      const event_name = types.join('.') as any;
+      const event_name = types.join('.');
 
       this.emit(event_name, {
         event_name, ...event,
@@ -134,6 +134,59 @@ export class Client extends EventEmitter {
       group_id, message, auto_escape,
     };
     return this.postChannel('send_group_msg', params);
+  }
+
+  /**
+   * 发送消息
+   *
+   * @param message_type - 消息类型
+   * @param user_id - 对方 QQ 号
+   * @param group_id - 群号
+   * @param message - 要发送的内容
+   * @param auto_escape - 消息内容是否作为纯文本发送
+   * @returns 消息 ID
+   */
+  public sendMsg(message_type: string, user_id: number, group_id: number, message: string, auto_escape: boolean = false) {
+    const params = {
+      message_type, user_id, group_id, message, auto_escape,
+    };
+    return this.postChannel('send_group_msg', params);
+  }
+
+  /**
+   * 获取消息
+   *
+   * @param message_id - 消息id
+   */
+  public getMsg(message_id: number) {
+    const params = {
+      message_id,
+    };
+    return this.postChannel('get_msg', params);
+  }
+
+  /**
+   * 撤回消息
+   *
+   * @param message_id - 消息id
+   */
+  public deleteMsg(message_id: number) {
+    const params = {
+      message_id,
+    };
+    return this.postChannel('delete_msg', params);
+  }
+
+  /**
+   * 标记消息已读
+   *
+   * @param message_id - 消息id
+   */
+  public markMsgAsRead(message_id: number) {
+    const params = {
+      message_id,
+    };
+    return this.postChannel('mark_msg_as_read', params);
   }
 }
 

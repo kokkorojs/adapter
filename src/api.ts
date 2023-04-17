@@ -1,4 +1,4 @@
-import { Device } from '@/event.js';
+import { Device } from '~/event.js';
 
 /** API 响应 */
 export interface ApiResponse {
@@ -181,9 +181,39 @@ export interface ApiRequestMap {
     /** 消息 ID */
     message_id: number;
   };
-  /** 发送群聊消息 */
+  /** 发送消息 */
   'send_msg': (params: SendMsgParams) => {
     /** 消息 ID */
     message_id: number;
   };
+  /** 发送消息 */
+  'get_msg': (params: { message_id: number }) => {
+    /** 是否是群消息 */
+    group: boolean;
+    /** 是群消息时的群号(否则不存在此字段) */
+    group_id: number;
+    /** 消息id */
+    message_id: number;
+    /** 消息真实id */
+    real_id: number;
+    /** 群消息时为group, 私聊消息为private */
+    message_type: string;
+    /** 发送者 */
+    sender: {
+      /** 发送者昵称 */
+      nickname: string;
+      /** 发送者 QQ 号 */
+      user_id: number;
+    };
+    /** 发送时间 */
+    time: number;
+    /** 消息内容 */
+    message: string;
+    /** 原始消息内容 */
+    raw_message: string;
+  };
+  /** 撤回消息 */
+  'delete_msg': (params: { message_id: number }) => null;
+  /** 标记消息已读 */
+  'mark_msg_as_read': (params: { message_id: number }) => null;
 }

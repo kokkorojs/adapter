@@ -3,7 +3,7 @@
   "version": "0.0.1",
   "description": "OneBot adapter for kokkoro.",
   "type": "module",
-  "exports": "./index.js",
+  "exports": "./lib/index.js",
   "engines": {
     "node": ">=15"
   },
@@ -29,6 +29,7 @@
     "ws": "^8.13.0"
   },
   "devDependencies": {
+    "@types/node": "^18.15.11",
     "@types/ws": "^8.5.4",
     "tsc-alias": "^1.8.5"
   },

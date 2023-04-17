@@ -1,6 +1,7 @@
 lockfileVersion: 5.4
 
 specifiers:
+  '@types/node': ^18.15.11
   '@types/ws': ^8.5.4
   nanoid: ^4.0.2
   tsc-alias: ^1.8.5
@@ -11,6 +12,7 @@ dependencies:
   ws: 8.13.0
 
 devDependencies:
+  '@types/node': 18.15.11
   '@types/ws': 8.5.4
   tsc-alias: 1.8.5
 
