@@ -15,31 +15,40 @@ client.on('message.private', (event) => {
 });
 ```
 
+## Features
+
+| Server       | Support |
+|--------------|---------|
+| HTTP         | 🔴      |
+| HTTP Webhook | 🔴      |
+| 正向 WebSocket | 🟢      |
+| 反向 WebSocket | 🟡      |
+
 ## Events
+
+| Event                      | Description |
+|----------------------------|-------------|
+| message                    | 全部消息        |
+| message.private            | 私聊消息        |
+| message.private.friend     | 好友消息        |
+| message.private.group      | 群临时会话       |
+| message.private.group_self | 群中自身发送      |
+| message.private.other      | 论外          |
+| message.group              | 群消息         |
+| message.group.normal       | 正常消息        |
+| message.group.anonymous    | 匿名消息        |
+| message.group.notice       | 系统提示        |
+
+| Event                | Description |
+|----------------------|-------------|
+| request              | 全部请求        |
+| request.friend       | 好友请求        |
+| request.group        | 群请求         |
+| request.group.add    | 加群请求        |
+| request.group.invite | 邀请入群        |
 
 | Event                         | Description |
 |-------------------------------|-------------|
-| meta_event                    | 全部元事件       |
-| meta_event.lifecycle          | 生命周期        |
-| meta_event.lifecycle.enable   | 启用          |
-| meta_event.lifecycle.disable  | 禁用          |
-| meta_event.lifecycle.connect  | 连接          |
-| meta_event.heartbeat          | 心跳包         |
-| message                       | 全部消息        |
-| message.private               | 私聊消息        |
-| message.private.friend        | 好友消息        |
-| message.private.group         | 群临时会话       |
-| message.private.group_self    | 群中自身发送      |
-| message.private.other         | 论外          |
-| message.group                 | 群消息         |
-| message.group.normal          | 正常消息        |
-| message.group.anonymous       | 匿名消息        |
-| message.group.notice          | 系统提示        |
-| request                       | 全部请求        |
-| request.friend                | 好友请求        |
-| request.group                 | 群请求         |
-| request.group.add             | 加群请求        |
-| request.group.invite          | 邀请入群        |
 | notice                        | 全部通知        |
 | notice.friend                 | 好友消息        |
 | notice.friend.add             | 好友添加        |
@@ -70,11 +79,23 @@ client.on('message.private', (event) => {
 | notice.essence.add            | 添加          |
 | notice.essence.delete         | 移出          |
 
-## Features
+| Event                        | Description |
+|------------------------------|-------------|
+| meta_event                   | 全部元事件       |
+| meta_event.lifecycle         | 生命周期        |
+| meta_event.lifecycle.enable  | 启用          |
+| meta_event.lifecycle.disable | 禁用          |
+| meta_event.lifecycle.connect | 连接          |
+| meta_event.heartbeat         | 心跳包         |
 
-| Server       | Support |
-|--------------|---------|
-| HTTP         | 🔴      |
-| HTTP Webhook | 🔴      |
-| 正向 WebSocket | 🟢      |
-| 反向 WebSocket | 🟡      |
+## API
+
+| Method         | Description |
+|----------------|-------------|
+| getLoginInfo   | 获取登录号信息     |
+| sendPrivateMsg | 发送私聊消息      |
+| sendGroupMsg   | 发送群聊消息      |
+| sendMsg        | 发送消息        |
+| getMsg         | 获取消息        |
+| deleteMsg      | 撤回消息        |
+| markMsgAsRead  | 标记消息已读      |
